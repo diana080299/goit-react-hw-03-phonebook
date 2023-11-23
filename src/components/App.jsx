@@ -17,8 +17,12 @@ export class App extends Component {
 
   componentDidMount() {
     const contacts = localStorage.getItem('contacts');
-    const parseContacts = JSON.parse(contacts) || []; // Provide an empty array as a default
-    this.setState({ contacts: parseContacts });
+    const parseContacts = JSON.parse(contacts) || [];
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
+    } else {
+      localStorage.removeItem('contacts');
+    }
   }
 
   componentDidUpdate(prevState) {
